@@ -38,7 +38,76 @@ document.addEventListener("DOMContentLoaded", () => {
             observer.observe(element);
         });
     }, 100);
+
+    // Initialize cart count from localStorage
+    initCart();
 });
+
+// Cart and Toast Storage
+let cartCount = 0;
+
+function updateCartBadges() {
+    const badges = document.querySelectorAll('.cart-badge');
+    badges.forEach(badge => {
+        badge.textContent = cartCount;
+        // Animation
+        badge.classList.add('pop');
+        setTimeout(() => badge.classList.remove('pop'), 300);
+    });
+}
+
+function addToCart(productName) {
+    cartCount++;
+    localStorage.setItem('cartCount', cartCount);
+    updateCartBadges();
+    showToast(`${productName} added to cart!`);
+}
+
+function initCart() {
+    const savedCount = localStorage.getItem('cartCount');
+    if (savedCount) {
+        cartCount = parseInt(savedCount, 10);
+        document.querySelectorAll('.cart-badge').forEach(badge => {
+            badge.textContent = cartCount;
+        });
+    }
+}
+
+function createToastContainer() {
+    let container = document.querySelector('.toast-container');
+    if (!container) {
+        container = document.createElement('div');
+        container.className = 'toast-container';
+        document.body.appendChild(container);
+    }
+    return container;
+}
+
+function showToast(message) {
+    const container = createToastContainer();
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    
+    toast.innerHTML = `
+        <div class="toast-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 6L9 17l-5-5"></path>
+            </svg>
+        </div>
+        <span>${message}</span>
+    `;
+    
+    container.appendChild(toast);
+    
+    // Trigger transition
+    setTimeout(() => toast.classList.add('show'), 10);
+    
+    // Auto remove
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 400); // Wait for transition out
+    }, 3000);
+}
 
 // Function to handle changing product image via color swatches
 function changeProductImage(element, imgId, newSrc) {

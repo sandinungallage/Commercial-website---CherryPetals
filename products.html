@@ -37,6 +37,16 @@
             <li><a href="about.html">About</a></li>
             <li><a href="products.html" class="active">Products</a></li>
             <li><a href="contact.html">Contact</a></li>
+            <li>
+                <a href="#" class="cart-link" id="cart-nav-link" aria-label="Cart">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-text)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cart-icon">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <span class="cart-badge" id="cart-count">0</span>
+                </a>
+            </li>
         </ul>
     </nav>
 
@@ -67,20 +77,26 @@
                         <p class="selector-label">Select Color:</p>
                         <div class="swatches">
                             <div class="color-swatch active" style="background-color:#ffb7c5;"
-                                onclick="changeProductImage(this, 'main-product-img-products', 'images/box_pink.jpg')"></div>
+                                onclick="changeProductImage(this, 'main-product-img-products', 'images/box_pink.jpg')">
+                            </div>
                             <div class="color-swatch" style="background-color: #89c4f4;"
-                                onclick="changeProductImage(this, 'main-product-img-products', 'images/box_blue.jpg')"></div>
+                                onclick="changeProductImage(this, 'main-product-img-products', 'images/box_blue.jpg')">
+                            </div>
                             <div class="color-swatch" style="background-color: #b2734a;"
-                                onclick="changeProductImage(this, 'main-product-img-products', 'images/box_brown.jpg')"></div>
+                                onclick="changeProductImage(this, 'main-product-img-products', 'images/box_brown.jpg')">
+                            </div>
                             <div class="color-swatch" style="background-color: #cda4de;"
-                                onclick="changeProductImage(this, 'main-product-img-products', 'images/box_purple.jpg')"></div>
+                                onclick="changeProductImage(this, 'main-product-img-products', 'images/box_purple.jpg')">
+                            </div>
                             <div class="color-swatch" style="background-color: #fceea7;"
-                                onclick="changeProductImage(this, 'main-product-img-products', 'images/box_yellow.jpg')"></div>
+                                onclick="changeProductImage(this, 'main-product-img-products', 'images/box_yellow.jpg')">
+                            </div>
                             <div class="color-swatch" style="background-color: #a8e6cf;"
-                                onclick="changeProductImage(this, 'main-product-img-products', 'images/box_green.jpg')"></div>
+                                onclick="changeProductImage(this, 'main-product-img-products', 'images/box_green.jpg')">
+                            </div>
                         </div>
                     </div>
-                    <button class="btn-outline">Order Custom Box</button>
+                    <button class="btn-outline add-to-cart-btn" onclick="addToCart('Signature Theme Box')">Add to Cart</button>
                 </div>
             </div>
             <div class="product-card glass fade-in delay-1 hover-effect">
@@ -91,7 +107,7 @@
                     <h3>Ladies Cute Items</h3>
                     <p>Explore our beautiful collection of scrunchies, aesthetic jewelry, and adorable everyday
                         essentials.</p>
-                    <button class="btn-outline">Shop Accessories</button>
+                    <button class="btn-outline add-to-cart-btn" onclick="addToCart('Ladies Cute Items')">Add to Cart</button>
                 </div>
             </div>
         </div>
@@ -104,15 +120,18 @@
                 <p>Your premium gifting destination.</p>
             </div>
             <div class="social-links">
-                <a href="https://www.facebook.com/share/1LGD14v7tM/?mibextid=wwXIfr" target="_blank" class="social-link-btn" aria-label="Facebook">
+                <a href="https://www.facebook.com/share/1LGD14v7tM/?mibextid=wwXIfr" target="_blank"
+                    class="social-link-btn" aria-label="Facebook">
                     <img src="images/Facebook_icon.png" class="social-icon" alt="Facebook">
                     <span class="social-name">Facebook</span>
                 </a>
-                <a href="https://wa.me/message/VE3ZSJIRPRCED1" target="_blank" class="social-link-btn" aria-label="WhatsApp">
+                <a href="https://wa.me/message/VE3ZSJIRPRCED1" target="_blank" class="social-link-btn"
+                    aria-label="WhatsApp">
                     <img src="images/whatsapp_icon.png" class="social-icon" alt="WhatsApp">
                     <span class="social-name">WhatsApp</span>
                 </a>
-                <a href="https://www.tiktok.com/@cherrypetals.lk?_r=1&_d=eg89a3f0jg91gm&sec_uid=MS4wLjABAAAACxtYW-KMU2tDMF90jdB__lsEaH--p1K-cIGL5XS49ApT7owlwa-7-KqRl5Gn8ZcJ&share_author_id=7610807435310695444&sharer_language=en&source=h5_m&u_code=db12d05f31i88l&item_author_type=2&utm_source=copy&tt_from=copy&enable_checksum=1&utm_medium=ios&share_link_id=8C6FF704-BF75-47BC-959C-82381703C71C&user_id=6794592670955717637&sec_user_id=MS4wLjABAAAAMgBlQ-HchUgLqjPi6_clXM1JOXq6gWkn93S_bmZo5ovNsRGbRbEDdUxbeBIaihMK&social_share_type=5&ug_btm=b2878,b5836&utm_campaign=client_share&share_app_id=1233." target="_blank" class="social-link-btn" aria-label="TikTok">
+                <a href="https://www.tiktok.com/@cherrypetals.lk?_r=1&_d=eg89a3f0jg91gm&sec_uid=MS4wLjABAAAACxtYW-KMU2tDMF90jdB__lsEaH--p1K-cIGL5XS49ApT7owlwa-7-KqRl5Gn8ZcJ&share_author_id=7610807435310695444&sharer_language=en&source=h5_m&u_code=db12d05f31i88l&item_author_type=2&utm_source=copy&tt_from=copy&enable_checksum=1&utm_medium=ios&share_link_id=8C6FF704-BF75-47BC-959C-82381703C71C&user_id=6794592670955717637&sec_user_id=MS4wLjABAAAAMgBlQ-HchUgLqjPi6_clXM1JOXq6gWkn93S_bmZo5ovNsRGbRbEDdUxbeBIaihMK&social_share_type=5&ug_btm=b2878,b5836&utm_campaign=client_share&share_app_id=1233."
+                    target="_blank" class="social-link-btn" aria-label="TikTok">
                     <img src="images/tiktok_icon.png" class="social-icon" alt="TikTok">
                     <span class="social-name">TikTok</span>
                 </a>
