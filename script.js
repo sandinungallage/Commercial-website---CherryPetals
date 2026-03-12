@@ -45,6 +45,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Cart state - array of objects
 let cartItems = [];
+let appliedCoupon = null;
+let discountAmount = 0;
+
+const VALID_COUPONS = {
+    'CHERRY10': 0.10, // 10% off
+    'WELCOME20': 0.20 // 20% off
+};
 
 // Calculate total items (sum of quantities)
 function getCartCount() {
@@ -108,6 +115,7 @@ function renderCartPage() {
     if (!container) return;
 
     if (cartItems.length === 0) {
+        appliedCoupon = null; // reset coupon
         container.innerHTML = `
             <div class="empty-cart-message">
                 <h3>Your cart is beautifully empty!</h3>
@@ -176,13 +184,57 @@ function removeFromCart(id) {
 
 function updateCartTotals() {
     const subtotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+    let total = subtotal;
     
+    const discountRow = document.getElementById('discount-row');
+    const discountEl = document.getElementById('summary-discount');
     const subtotalEl = document.getElementById('summary-subtotal');
     const totalEl = document.getElementById('summary-total');
     
+    if (appliedCoupon && VALID_COUPONS[appliedCoupon]) {
+        discountAmount = subtotal * VALID_COUPONS[appliedCoupon];
+        total = subtotal - discountAmount;
+        
+        if (discountRow && discountEl) {
+            discountRow.style.display = 'flex';
+            discountEl.textContent = `-LKR ${discountAmount.toLocaleString()}`;
+        }
+    } else {
+        discountAmount = 0;
+        if (discountRow) {
+            discountRow.style.display = 'none';
+        }
+    }
+
     if (subtotalEl && totalEl) {
         subtotalEl.textContent = `LKR ${subtotal.toLocaleString()}`;
-        totalEl.textContent = `LKR ${subtotal.toLocaleString()}`;
+        totalEl.textContent = `LKR ${total.toLocaleString()}`;
+    }
+}
+
+function applyCoupon() {
+    const codeInput = document.getElementById('coupon-code');
+    const messageEl = document.getElementById('coupon-message');
+    if (!codeInput || !messageEl) return;
+    
+    const code = codeInput.value.trim().toUpperCase();
+
+    if (!code) {
+        messageEl.textContent = 'Please enter a coupon code.';
+        messageEl.className = 'coupon-message error';
+        return;
+    }
+
+    if (VALID_COUPONS[code]) {
+        appliedCoupon = code;
+        messageEl.textContent = `${code} applied successfully!`;
+        messageEl.className = 'coupon-message success';
+        updateCartTotals();
+    } else {
+        messageEl.textContent = 'Invalid or expired coupon code.';
+        messageEl.className = 'coupon-message error';
+        appliedCoupon = null;
+        updateCartTotals();
     }
 }
 
@@ -202,7 +254,16 @@ function checkout() {
         message += `• ${item.name}\n  Qty: ${item.quantity}  |  LKR ${itemTotal.toLocaleString()}\n`;
     });
     
-    message += `\n*Order Total: LKR ${total.toLocaleString()}*`;
+    if (appliedCoupon) {
+        const discount = total * VALID_COUPONS[appliedCoupon];
+        const finalTotal = total - discount;
+        message += `\n*Subtotal: LKR ${total.toLocaleString()}*`;
+        message += `\n*Discount (${appliedCoupon}): -LKR ${discount.toLocaleString()}*`;
+        message += `\n*Final Total: LKR ${finalTotal.toLocaleString()}*`;
+    } else {
+        message += `\n*Order Total: LKR ${total.toLocaleString()}*`;
+    }
+    
     message += "\n\nI would like to proceed with checking out.";
     
     const encodedMessage = encodeURIComponent(message);

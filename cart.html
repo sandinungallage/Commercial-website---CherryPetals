@@ -205,6 +205,51 @@
             font-size: 2rem;
             margin-bottom: 15px;
         }
+
+        .coupon-section {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .coupon-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid rgba(255, 133, 161, 0.4);
+            border-radius: 12px;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            background: rgba(255, 255, 255, 0.7);
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .coupon-input:focus {
+            outline: none;
+            border-color: var(--color-primary-dark);
+            box-shadow: 0 0 0 3px rgba(255, 133, 161, 0.2);
+        }
+
+        .coupon-btn {
+            padding: 10px 20px;
+            font-size: 0.95rem;
+            border-radius: 12px;
+        }
+        
+        .coupon-message {
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .coupon-message.success {
+            color: #27ae60;
+        }
+        
+        .coupon-message.error {
+            color: #ff6b6b;
+        }
         
         @media (max-width: 600px) {
             .cart-item {
@@ -272,10 +317,21 @@
                     <span>Shipping</span>
                     <span>Calculated at checkout</span>
                 </div>
+                <div class="summary-row" id="discount-row" style="display: none; color: #ff6b6b;">
+                    <span>Discount</span>
+                    <span id="summary-discount">-LKR 0</span>
+                </div>
                 <div class="summary-total">
                     <span>Total</span>
                     <span id="summary-total">LKR 0</span>
                 </div>
+                
+                <div class="coupon-section">
+                    <input type="text" id="coupon-code" class="coupon-input" placeholder="Coupon Code">
+                    <button class="btn-outline coupon-btn" onclick="applyCoupon()">Apply</button>
+                </div>
+                <div id="coupon-message" class="coupon-message"></div>
+
                 <button class="btn-primary checkout-btn" onclick="checkout()">Proceed to Checkout</button>
             </div>
         </div>
